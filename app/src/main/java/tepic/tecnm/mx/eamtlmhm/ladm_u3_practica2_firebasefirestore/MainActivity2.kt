@@ -4,6 +4,9 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
+import android.widget.TextView
+import java.text.SimpleDateFormat
+import java.util.*
 
 class MainActivity2 : AppCompatActivity() {
     var modificacion = false
@@ -11,7 +14,11 @@ class MainActivity2 : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main2)
+
+        findViewById<TextView>(R.id.txtDate).setText(SimpleDateFormat("yyyy-MM-dd").format(Date()).toString())
+        findViewById<TextView>(R.id.txtTime).setText(SimpleDateFormat("HH:MM").format(Date()))
         findViewById<Button>(R.id.borrarArchivo).isEnabled = false
+
         //Inicia la lectura de notas del dispositivo
         agregarContenidoInicial()
         //Agrega funcion guardar al boton guardar
@@ -54,7 +61,8 @@ class MainActivity2 : AppCompatActivity() {
             val nota = Nota(this)
             nota.titulo =  findViewById<EditText>(R.id.txtTitle).text.toString()
             nota.contenido = findViewById<EditText>(R.id.txtContenido).text.toString()
-            
+            nota.hora = findViewById<TextView>(R.id.txtTime).text.toString()
+            nota.fecha =  findViewById<TextView>(R.id.txtDate).text.toString()
         }//end else
     }//end guardar
 
