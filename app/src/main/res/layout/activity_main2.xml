@@ -37,7 +37,7 @@
         android:textSize="15sp"
         android:inputType="textMultiLine"
         android:gravity="top"
-        android:id="@+id/txtNote"/>
+        android:id="@+id/txtContenido"/>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/agregarNota"
