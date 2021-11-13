@@ -6,12 +6,9 @@ import android.os.Bundle
 import android.widget.Button
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
-import java.io.BufferedReader
-import java.io.IOException
-import java.io.InputStreamReader
 
 class MainActivity : AppCompatActivity() {
-    private var escalalista = ArrayList<ModeloRecilcer>()
+    private var escalalista = ArrayList<Nota>()
     private lateinit var rvEscalar: RecyclerView
     private lateinit var adaptador: EscalonarRecicler
 
@@ -20,12 +17,17 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         iniciarComponentes()
+
         //Boton + iniciar nueva ventana emergente de notas
-        findViewById<Button>(R.id.fab).setOnClickListener {
+        findViewById<Button>(R.id.insertar).setOnClickListener {
             val view = Intent(this, MainActivity2::class.java)
             startActivity(view)
-        }
-    }
+        }///insertar
+
+
+
+
+    }//en onCreate
 
     private fun iniciarComponentes() {
         escalalista.clear()
@@ -42,17 +44,12 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun iniciaNotas() {
-        //Leer de base de datos
-        //agregar a escalalista
-        try {
-            val archivo = BufferedReader(InputStreamReader(openFileInput("archivo_10_.txt")))// Lee archivo separado por comas
-            archivo.forEachLine {
-                val listado = it.split(";") // crea arreglo linea a linea separado por comas
-                //val Nota1:Nota = Nota() // Se crea objeto nota
-                var nota1 = ModeloRecilcer(listado[0],listado[1])// Se agrega nota al adaptador de recicler
-                escalalista.add(nota1) // Se agrega Nota al Recicler
-            }
-        }catch (io : IOException){
-        }
-    }
-}
+        var notas = Nota(this).selectAll()
+        if (!notas.isEmpty()){
+            notas.forEach {
+                escalalista.add(it)
+            }//forEach
+        }//end if
+    }//iniciarNotas
+
+}//end class

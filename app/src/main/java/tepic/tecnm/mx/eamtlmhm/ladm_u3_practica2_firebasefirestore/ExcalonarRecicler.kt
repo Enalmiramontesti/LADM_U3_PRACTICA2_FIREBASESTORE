@@ -8,7 +8,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 
-class EscalonarRecicler(val context: Context,var lista: List<ModeloRecilcer>):
+class EscalonarRecicler(val context: Context,var lista: List<Nota>):
     RecyclerView.Adapter<EscalonarRecicler.EscalarViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): EscalarViewHolder {
@@ -21,16 +21,15 @@ class EscalonarRecicler(val context: Context,var lista: List<ModeloRecilcer>):
 
 
         holder.txTitulo.setText(escalarlista.titulo)
-        holder.txEscalar.setText(escalarlista.texto)
+        holder.txEscalar.setText(escalarlista.contenido)
 
         holder.itemView.setOnClickListener{
             //mandar lista a base de datos
 
             val view1 = Intent(context, MainActivity2::class.java)
             //Se busca el ID del objeto seleccionado
-            view1.putExtra("ID",1)
             view1.putExtra("titulo",escalarlista.titulo)
-            view1.putExtra("texto",escalarlista.texto)
+            view1.putExtra("texto",escalarlista.contenido)
             context.startActivity(view1)
         }
     }

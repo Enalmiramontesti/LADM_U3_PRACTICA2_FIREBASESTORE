@@ -7,9 +7,6 @@ import android.widget.EditText
 
 class MainActivity2 : AppCompatActivity() {
     var modificacion = false
-    var id = ""
-    var titulo = ""
-    var texto = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,17 +27,14 @@ class MainActivity2 : AppCompatActivity() {
     }
 
     private fun agregarContenidoInicial() {
-        if(getIntent().hasExtra("titulo")
-            && getIntent().hasExtra("texto")
-            && getIntent().hasExtra("ID")){//Revisa si se mando algo al activity
+        if(getIntent().hasExtra("titulo") && getIntent().hasExtra("texto")){//Revisa si se mando algo al activity
             var intent = getIntent()
-            titulo = intent.getStringExtra("titulo").toString()//Crashea si no existe un Extra
-            texto = intent.getStringExtra("texto").toString()
-            id = intent.getStringExtra("ID").toString()
+            val titulo = intent.getStringExtra("titulo").toString()//Crashea si no existe un Extra
+            val texto = intent.getStringExtra("texto").toString()
             modificacion = true
             //Coloca el contenido mandado a los txt
             findViewById<EditText>(R.id.txtTitle).setText(titulo)
-            findViewById<EditText>(R.id.txtNote).setText(texto)
+            findViewById<EditText>(R.id.txtContenido).setText(texto)
         }
     }
 
@@ -55,9 +49,14 @@ class MainActivity2 : AppCompatActivity() {
     private fun guardar(){
         if (modificacion){
             actualizar()
-        }else {
+        }//end if
+        else {
+            val nota = Nota(this)
+            nota.titulo =  findViewById<EditText>(R.id.txtTitle).text.toString()
+            nota.contenido = findViewById<EditText>(R.id.txtContenido).text.toString()
+            
+        }//end else
+    }//end guardar
 
-        }
-    }
-}
+}//end class
 

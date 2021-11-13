@@ -30,14 +30,34 @@
     <EditText
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="80dp"
+        android:layout_marginTop="85dp"
         android:textColorHint="#FF505874"
         android:textColor="#FF505874"
         android:hint="WRITE NOTE..."
         android:textSize="15sp"
         android:inputType="textMultiLine"
         android:gravity="top"
-        android:id="@+id/txtNote"/>
+        android:id="@+id/txtContenido"/>
+
+    <TextView
+        android:id="@+id/txtTime"
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="60dp"
+        android:text="00:00:00"
+        android:textSize="18sp"
+        android:textColor="#FF505874"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <TextView
+        android:id="@+id/txtDate"
+        android:layout_marginTop="60dp"
+        android:layout_gravity="right"
+        android:text="DD/MM/AAAA"
+        android:textSize="18sp"
+        android:textColor="#FF505874"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/agregarNota"
