@@ -66,8 +66,7 @@
         android:layout_gravity="bottom|center"
         android:layout_marginBottom="20dp"
         app:backgroundTint="#fff"
-        app:srcCompat="@android:drawable/ic_menu_save"
-        tools:ignore="MissingConstraints" />
+        app:srcCompat="@android:drawable/ic_menu_save"/>
 
 
 </FrameLayout>

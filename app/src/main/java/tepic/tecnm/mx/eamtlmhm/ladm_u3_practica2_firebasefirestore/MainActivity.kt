@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.widget.Button
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
+import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
     private var escalalista = ArrayList<Nota>()
@@ -19,13 +20,10 @@ class MainActivity : AppCompatActivity() {
         iniciarComponentes()
 
         //Boton + iniciar nueva ventana emergente de notas
-        findViewById<Button>(R.id.insertar).setOnClickListener {
+        insertar.setOnClickListener {
             val view = Intent(this, MainActivity2::class.java)
             startActivity(view)
         }///insertar
-
-
-
 
     }//en onCreate
 
@@ -45,7 +43,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun iniciaNotas() {
         var notas = Nota(this).selectAll()
-        if (!notas.isEmpty()){
+        if (notas != null){
             notas.forEach {
                 escalalista.add(it)
             }//forEach

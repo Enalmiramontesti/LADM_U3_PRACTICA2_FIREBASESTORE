@@ -5,6 +5,8 @@ import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
+import android.widget.Toast
+import kotlinx.android.synthetic.main.activity_main2.*
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -15,20 +17,20 @@ class MainActivity2 : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main2)
 
-        findViewById<TextView>(R.id.txtDate).setText(SimpleDateFormat("yyyy-MM-dd").format(Date()).toString())
-        findViewById<TextView>(R.id.txtTime).setText(SimpleDateFormat("HH:MM").format(Date()))
-        findViewById<Button>(R.id.borrarArchivo).isEnabled = false
+        txtDate.setText(SimpleDateFormat("yyyy-MM-dd").format(Date()).toString())
+        txtTime.setText(SimpleDateFormat("HH:MM").format(Date()))
+        borrarArchivo.isEnabled = false
 
         //Inicia la lectura de notas del dispositivo
         agregarContenidoInicial()
         //Agrega funcion guardar al boton guardar
-        findViewById<Button>(R.id.agregarNota).setOnClickListener {
+        agregarNota.setOnClickListener {
             guardar()
-        }//fab
+        }//agregarNota
         if (modificacion){
-            findViewById<Button>(R.id.borrarArchivo).isEnabled = true
+            borrarArchivo.isEnabled = true
         }
-        findViewById<Button>(R.id.borrarArchivo).setOnClickListener {
+        borrarArchivo.setOnClickListener {
             borrarNotas()
         }
     }
@@ -40,13 +42,13 @@ class MainActivity2 : AppCompatActivity() {
             val texto = intent.getStringExtra("texto").toString()
             modificacion = true
             //Coloca el contenido mandado a los txt
-            findViewById<EditText>(R.id.txtTitle).setText(titulo)
-            findViewById<EditText>(R.id.txtContenido).setText(texto)
+            txtTitle.setText(titulo)
+            txtContenido.setText(texto)
         }
     }
 
     private fun actualizar(){
-
+        Toast.makeText(this,"Hola que hace",Toast.LENGTH_LONG).show()
     }
 
     private fun borrarNotas() {
@@ -59,10 +61,15 @@ class MainActivity2 : AppCompatActivity() {
         }//end if
         else {
             val nota = Nota(this)
-            nota.titulo =  findViewById<EditText>(R.id.txtTitle).text.toString()
-            nota.contenido = findViewById<EditText>(R.id.txtContenido).text.toString()
-            nota.hora = findViewById<TextView>(R.id.txtTime).text.toString()
-            nota.fecha =  findViewById<TextView>(R.id.txtDate).text.toString()
+            nota.titulo =  txtTitle.text.toString()
+            nota.contenido = txtContenido.text.toString()
+            nota.hora = txtTime.text.toString()
+            nota.fecha =  txtDate.text.toString()
+            if(nota.insertNota()){
+                Toast.makeText(this,"Nota Agregada Exitosamente",Toast.LENGTH_LONG).show()
+            }else{
+                Toast.makeText(this,"Error al agregar Nota",Toast.LENGTH_LONG).show()
+            }
         }//end else
     }//end guardar
 
