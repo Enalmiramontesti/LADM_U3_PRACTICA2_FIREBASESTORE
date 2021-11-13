@@ -22,7 +22,6 @@ class EscalonarRecicler(val context: Context,var lista: List<Nota>):
 
         holder.txTitulo.setText(escalarlista.titulo)
         holder.txEscalar.setText(escalarlista.contenido)
-
         holder.itemView.setOnClickListener{
             //mandar lista a base de datos
 
@@ -30,6 +29,7 @@ class EscalonarRecicler(val context: Context,var lista: List<Nota>):
             //Se busca el ID del objeto seleccionado
             view1.putExtra("titulo",escalarlista.titulo)
             view1.putExtra("texto",escalarlista.contenido)
+            view1.putExtra("id",escalarlista.id)
             context.startActivity(view1)
         }
     }

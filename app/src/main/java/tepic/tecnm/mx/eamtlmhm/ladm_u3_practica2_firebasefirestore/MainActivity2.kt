@@ -48,8 +48,13 @@ class MainActivity2 : AppCompatActivity() {
     }
 
     private fun actualizar(){
-        Toast.makeText(this,"Hola que hace",Toast.LENGTH_LONG).show()
-    }
+        val nota = Nota(this)
+        nota.titulo =  txtTitle.text.toString()
+        nota.contenido = txtContenido.text.toString()
+        nota.hora = txtTime.text.toString()
+        nota.fecha =  txtDate.text.toString()
+
+    }//end actualizar
 
     private fun borrarNotas() {
 
