@@ -10,6 +10,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.LADM_U3_PRACTICA2_FIREBASEFIRESTORE">
         <activity
+            android:name=".MainActivity2"
+            android:exported="true" />
+        <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
