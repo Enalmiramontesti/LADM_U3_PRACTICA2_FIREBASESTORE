@@ -12,7 +12,7 @@ import java.util.*
 
 class MainActivity2 : AppCompatActivity() {
     var modificacion = false
-
+    var id = 0
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main2)
@@ -40,6 +40,8 @@ class MainActivity2 : AppCompatActivity() {
             var intent = getIntent()
             val titulo = intent.getStringExtra("titulo").toString()//Crashea si no existe un Extra
             val texto = intent.getStringExtra("texto").toString()
+            id = intent.getStringExtra("id").toString().toInt()
+
             modificacion = true
             //Coloca el contenido mandado a los txt
             txtTitle.setText(titulo)
@@ -48,11 +50,22 @@ class MainActivity2 : AppCompatActivity() {
     }
 
     private fun actualizar(){
-        Toast.makeText(this,"Hola que hace",Toast.LENGTH_LONG).show()
-    }
+        val nota = Nota(this)
+        nota.id = id
+        nota.titulo =  txtTitle.text.toString()
+        nota.contenido = txtContenido.text.toString()
+        nota.hora = txtTime.text.toString()
+        nota.fecha =  txtDate.text.toString()
+
+        if(nota.updateNota()){ Toast.makeText(this,"Se Actualizo Exitosamente",Toast.LENGTH_LONG).show()}
+        else{ Toast.makeText(this,"Error al actualizar",Toast.LENGTH_LONG).show()}
+    }//end actualizar
 
     private fun borrarNotas() {
-
+        val nota = Nota(this)
+        nota.id = id
+        if(nota.deleteNota()){ Toast.makeText(this,"Se elimino exitosamente",Toast.LENGTH_LONG).show()}
+        else{ Toast.makeText(this,"Error al eliminar",Toast.LENGTH_LONG).show()}
     }
 
     private fun guardar(){

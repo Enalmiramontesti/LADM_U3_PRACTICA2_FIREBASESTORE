@@ -3,7 +3,6 @@ package tepic.tecnm.mx.eamtlmhm.ladm_u3_practica2_firebasefirestore
 import android.content.ContentValues
 import android.content.Context
 import com.google.firebase.firestore.FirebaseFirestore
-import java.util.*
 import kotlin.collections.ArrayList
 
 
@@ -12,24 +11,49 @@ class Nota(p:Context) {
     var contenido = ""
     var hora =  ""
     var fecha = ""
+    var id : Int? = null
     var pointer = p
     val baseRemota = FirebaseFirestore.getInstance()
 
     //Inserta una nota
     fun insertNota(): Boolean{
+        val tabla = BaseDatos(pointer,"BDNOTAS",null,1)
+        val datos = ContentValues()
+        datos.put("TITULO",titulo)
+        datos.put("CONTENIDO",contenido)
+        datos.put("HORA",hora)
+        datos.put("FECHA",fecha)
+        val resultado = tabla.writableDatabase.insert("NOTA",null,datos)
+        val cursor = tabla.readableDatabase.rawQuery("SELECT COUNT(*) FROM NOTA",null)
+        if(cursor.moveToFirst())
+            id = cursor.getInt(0)
+        if(resultado == -1L)
+            return false
+        return true
+    }//end inserNota
+
+
+    //Actualizar nota
+    fun updateNota(): Boolean{
         val tabla = BaseDatos(pointer,"BDNOTAS",null,1).writableDatabase
         val datos = ContentValues()
         datos.put("TITULO",titulo)
         datos.put("CONTENIDO",contenido)
         datos.put("HORA",hora)
         datos.put("FECHA",fecha)
-
-        val resultado = tabla.insert("NOTA",null,datos)
-        if(resultado == -1L)
+        val resultado = tabla.update("NOTA",datos,"ID =${id}",null)
+        if(resultado == 0)
             return false
         return true
-    }//end inserNota
+    }//end updateNota
 
+    fun deleteNota():Boolean{
+        val tabla = BaseDatos(pointer,"BDNOTAS",null,1).writableDatabase
+        val resultado = tabla.delete("NOTA","ID=${id}",null)
+        if (resultado == 0)
+            return false
+        return true
+    }//deleteNota
 
     //Seleccionar todas las notas
     fun selectAll():ArrayList<Nota>{
@@ -39,6 +63,7 @@ class Nota(p:Context) {
         if(cursor.moveToFirst()){
             do{
                 val nota = Nota(pointer)
+                nota.id = cursor.getInt(0)
                 nota.titulo = cursor.getString(1)
                 nota.contenido = cursor.getString(2)
                 nota.hora = cursor.getString(3)
