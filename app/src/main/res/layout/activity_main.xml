@@ -44,6 +44,15 @@
             android:textSize="15sp"/>
     </RelativeLayout>
 
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/sincronizar"
+        android:text="SINCRONIZAR"
+        android:layout_gravity="bottom|center"
+        android:layout_marginBottom="80dp"
+        android:layout_marginLeft="60dp"/>
+
     <LinearLayout
         android:layout_marginTop="170dp"
         android:layout_width="match_parent"

@@ -2,6 +2,7 @@ package tepic.tecnm.mx.eamtlmhm.ladm_u3_practica2_firebasefirestore
 
 import android.content.ContentValues
 import android.content.Context
+import androidx.appcompat.app.AlertDialog
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlin.collections.ArrayList
 
@@ -13,7 +14,7 @@ class Nota(p:Context) {
     var fecha = ""
     var id : Int? = null
     var pointer = p
-    //val baseRemota = FirebaseFirestore.getInstance()
+
 
     //Inserta una nota
     fun insertNota(): Boolean{
@@ -93,7 +94,92 @@ class Nota(p:Context) {
             return false
         return true
     }//end update
+//-------------------------------------FIREBASE----------------------------------
+    var baseRemota = FirebaseFirestore.getInstance()
+    fun insertarFirebase():Boolean {
+        var resultado = false
+        var datosInsertar = hashMapOf(
+            "ID" to id,
+            "TITULO" to titulo,
+            "CONTENIDO" to contenido,
+            "HORA" to hora,
+            "FECHA" to fecha
+        )
+        baseRemota.collection("NOTAS")
+            .add(datosInsertar as Any)
+            .addOnSuccessListener {
+                resultado =  true
+            }
+            .addOnFailureListener {
+                resultado = false
+            }
+        return resultado
+    }
 
+    fun eliminarFirebase(idElegido: String):Boolean {
+        var resultado = false
+        baseRemota.collection("NOTAS")
+            .document(idElegido)
+            .delete()
+            .addOnSuccessListener {
+                resultado =  true
+            }
+            .addOnFailureListener {
+                resultado = false
+            }
+        return resultado
+    }
 
+    fun actualizaFirebase(idElegido: String):Boolean {
+        var resultado = false
+        baseRemota.collection("NOTAS")
+            .document(idElegido)
+            .update("TITULO",titulo)
+            .addOnSuccessListener {
+                resultado = true
+            }
+        baseRemota.collection("NOTAS")
+            .document(idElegido)
+            .update("CONTENIDO",contenido)
+            .addOnSuccessListener {
+                resultado = true
+            }
+        baseRemota.collection("NOTAS")
+            .document(idElegido)
+            .update("HORA",hora)
+            .addOnSuccessListener {
+                resultado = true
+            }
+        baseRemota.collection("NOTAS")
+            .document(idElegido)
+            .update("FECHA",fecha)
+            .addOnSuccessListener {
+                resultado = true
+            }
+        return resultado
+    }
 
+    fun selectAllFirestore():ArrayList<Nota>{
+        var notas = ArrayList<Nota>()
+        baseRemota.collection("NOTAS")
+            .addSnapshotListener{querySnapshot,error->
+                if(error!=null){
+                    AlertDialog.Builder(pointer).setTitle("ATENCION")
+                        .setMessage(error.message!!)
+                        .setPositiveButton("OK"){s,i->}
+                        .show()
+                    return@addSnapshotListener
+                }
+                for (document in querySnapshot!!){
+                    val nota = Nota(pointer)
+                    nota.id = document.getString("ID")!!.toInt()
+                    nota.titulo = document.getString("TITULO")!!
+                    nota.contenido = document.getString("CONTENIDO")!!
+                    nota.hora = document.getString("HORA")!!
+                    nota.fecha = document.getString("FECHA")!!
+                    notas.add(nota)
+                }
+            }
+        return notas
+    }
 }
