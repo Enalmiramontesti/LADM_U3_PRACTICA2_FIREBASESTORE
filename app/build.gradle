@@ -4,7 +4,6 @@ plugins {
     id 'kotlin-android-extensions'
 }
 apply plugin: 'kotlin-android'
-apply plugin: 'com.google.gms.google-services'
 
 android {
     compileSdk 31

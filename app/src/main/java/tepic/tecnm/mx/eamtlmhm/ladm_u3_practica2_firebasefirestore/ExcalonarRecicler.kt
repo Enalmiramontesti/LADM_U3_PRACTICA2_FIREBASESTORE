@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 
 class EscalonarRecicler(val context: Context,var lista: List<Nota>):
@@ -27,9 +28,10 @@ class EscalonarRecicler(val context: Context,var lista: List<Nota>):
 
             val view1 = Intent(context, MainActivity2::class.java)
             //Se busca el ID del objeto seleccionado
+
             view1.putExtra("titulo",escalarlista.titulo)
             view1.putExtra("texto",escalarlista.contenido)
-            view1.putExtra("id",escalarlista.id)
+            view1.putExtra("idNOTAS",escalarlista.id)
             context.startActivity(view1)
         }
     }

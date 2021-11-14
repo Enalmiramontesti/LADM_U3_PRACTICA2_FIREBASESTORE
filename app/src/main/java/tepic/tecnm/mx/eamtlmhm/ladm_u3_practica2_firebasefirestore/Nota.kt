@@ -13,7 +13,7 @@ class Nota(p:Context) {
     var fecha = ""
     var id : Int? = null
     var pointer = p
-    val baseRemota = FirebaseFirestore.getInstance()
+    //val baseRemota = FirebaseFirestore.getInstance()
 
     //Inserta una nota
     fun insertNota(): Boolean{
