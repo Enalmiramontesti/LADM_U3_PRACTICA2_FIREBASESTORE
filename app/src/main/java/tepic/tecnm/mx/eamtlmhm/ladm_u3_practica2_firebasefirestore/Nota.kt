@@ -2,6 +2,7 @@ package tepic.tecnm.mx.eamtlmhm.ladm_u3_practica2_firebasefirestore
 
 import android.content.ContentValues
 import android.content.Context
+import com.google.firebase.firestore.FirebaseFirestore
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -12,7 +13,7 @@ class Nota(p:Context) {
     var hora =  ""
     var fecha = ""
     var pointer = p
-
+    val baseRemota = FirebaseFirestore.getInstance()
 
     //Inserta una nota
     fun insertNota(): Boolean{
@@ -48,6 +49,26 @@ class Nota(p:Context) {
 
         return notas
     }//end selectAll
+
+    fun delete(id: String): Boolean{
+        if(BaseDatos(pointer,"BDNOTAS",null,1).writableDatabase.delete("NOTA","ID=?",arrayOf(id)) == 0)
+            return false
+        return true
+    }//end delete
+
+    fun update(id: String): Boolean{
+        val datos = ContentValues()
+        datos.put("TITULO",titulo)
+        datos.put("CONTENIDO",contenido)
+        datos.put("HORA",hora)
+        datos.put("FECHA",fecha)
+        val tabla = BaseDatos(pointer,"BDNOTAS",null,1).writableDatabase
+        val result = tabla.update("NOTA",datos,"ID=?",arrayOf(id))
+        if(result == 0)
+            return false
+        return true
+    }//end update
+
 
 
 }
