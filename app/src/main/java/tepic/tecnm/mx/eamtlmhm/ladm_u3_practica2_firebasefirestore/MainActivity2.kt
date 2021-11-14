@@ -77,6 +77,7 @@ class MainActivity2 : AppCompatActivity() {
                 nota.id = id
                 if(nota.deleteNota()){ Toast.makeText(this,"Se elimino exitosamente",Toast.LENGTH_LONG).show()}
                 else{ Toast.makeText(this,"Error al eliminar",Toast.LENGTH_LONG).show()}
+                finish()
             }
             .setNegativeButton("CANCELAR"){d,i-> }
             .show()
@@ -99,6 +100,7 @@ class MainActivity2 : AppCompatActivity() {
                 }else{
                     Toast.makeText(this,"Error al agregar Nota",Toast.LENGTH_LONG).show()
                 }
+                finish()
             }else{
                 Toast.makeText(this,"Error rellene titulo y descripcion",Toast.LENGTH_LONG).show()
             }

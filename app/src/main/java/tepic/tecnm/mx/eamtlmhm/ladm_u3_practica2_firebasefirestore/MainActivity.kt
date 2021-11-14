@@ -3,7 +3,7 @@ package tepic.tecnm.mx.eamtlmhm.ladm_u3_practica2_firebasefirestore
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.Button
+import android.os.CountDownTimer
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import kotlinx.android.synthetic.main.activity_main.*
@@ -13,7 +13,15 @@ class MainActivity : AppCompatActivity() {
     private lateinit var rvEscalar: RecyclerView
     private lateinit var adaptador: EscalonarRecicler
 
+    val timer = object  : CountDownTimer(20000,200){
+        override fun onTick(p0: Long) {
+            iniciarComponentes()
+        }
 
+        override fun onFinish() {
+            start()
+        }
+    }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -24,7 +32,7 @@ class MainActivity : AppCompatActivity() {
             val view = Intent(this, MainActivity2::class.java)
             startActivity(view)
         }///insertar
-
+        timer.start()
     }//en onCreate
 
     private fun iniciarComponentes() {
@@ -51,3 +59,4 @@ class MainActivity : AppCompatActivity() {
     }//iniciarNotas
 
 }//end class
+
