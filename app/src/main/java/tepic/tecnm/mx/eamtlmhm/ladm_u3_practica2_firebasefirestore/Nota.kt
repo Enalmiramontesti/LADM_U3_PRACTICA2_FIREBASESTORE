@@ -15,7 +15,6 @@ class Nota(p:Context) {
     var hora =  ""
     var fecha = ""
     var id : Int? = null
-    var idFirestore = ""
     var pointer = p
 
 
@@ -182,7 +181,12 @@ class Nota(p:Context) {
                     listaLocal.forEach{it.insertarFirebase()}
                 }
                 //actualiza los documentos que se modifican en local a firestore
-                comparaUpdate(listaFirestore,listaLocal)
+                listaFirestore.forEach {
+                    var notaLeida = selectIDFirestore(it.id.toString())
+                    if (notaLeida.titulo != it.titulo || notaLeida.contenido != it.contenido){
+                        notaLeida.actualizaFirebase(notaLeida.id.toString())
+                    }
+                }
                 Toast.makeText(pointer,"SE SINCRONIZO CON EXITO", Toast.LENGTH_LONG).show()
             }//addSnapshotListener END
     }//selectAllFirestore END
@@ -204,23 +208,20 @@ class Nota(p:Context) {
         }//end if
         return notas
     }
-
-    fun comparaUpdate(listaFirebase: ArrayList<Nota>, listaLocal: ArrayList<Nota>) {
-        //Compara las listas para ver que dato se modificara
-        listaLocal.forEach {
-            var notaLeida = it
-            //Revisa las notas que se actualizaran
-            (0..listaFirebase.size-1).forEach{
-                //Compara si titulo o contenido son diferentes
-                if(notaLeida.id == listaFirebase[it].id && (
-                            notaLeida.titulo != listaFirebase[it].titulo ||
-                                    notaLeida.contenido != listaFirebase[it].contenido
-                            )){
-                    //Se agrega la nota al arreglo cuando se encontro una modificacion
-                    notaLeida.actualizaFirebase(notaLeida.id.toString())
-                }
-            }
-        }
+    private fun selectIDFirestore(idFirestore: String):Nota {
+        var notas = Nota(pointer)
+        val tabla = BaseDatos(pointer,"BDNOTAS",null,1).readableDatabase
+        val cursor = tabla.rawQuery("SELECT * FROM NOTA WHERE ID = ${idFirestore}",null)
+        if(cursor.moveToFirst()){
+            do{
+                notas.id = cursor.getInt(0)
+                notas.titulo = cursor.getString(1)
+                notas.contenido = cursor.getString(2)
+                notas.hora = cursor.getString(3)
+                notas.fecha = cursor.getString(4)
+            }while (cursor.moveToNext())
+        }//end if
+        return notas
     }
 
 }
