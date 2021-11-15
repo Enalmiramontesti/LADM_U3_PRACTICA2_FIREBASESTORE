@@ -1,33 +1,33 @@
 {
   "project_info": {
-    "project_number": "246041154208",
-    "project_id": "proyecto1-4ae05",
-    "storage_bucket": "proyecto1-4ae05.appspot.com"
+    "project_number": "18864179271",
+    "project_id": "practica2firebasefirestoreu3",
+    "storage_bucket": "practica2firebasefirestoreu3.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:246041154208:android:de4f785f63eb4d9091afc5",
+        "mobilesdk_app_id": "1:18864179271:android:d835646dc7f8a97fa80962",
         "android_client_info": {
           "package_name": "tepic.tecnm.mx.eamtlmhm.ladm_u3_practica2_firebasefirestore"
         }
       },
       "oauth_client": [
         {
-          "client_id": "246041154208-gtvshfved362acs18inr52fo7c04c0nk.apps.googleusercontent.com",
+          "client_id": "18864179271-2irmut7vno02hg06gm76dn9a7lu7skdm.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyDXQu3HSYf3oIG8AVAVm4Vq0xmd9wUUu5s"
+          "current_key": "AIzaSyC-lgxlbE0XdlHKEC4DoPH5tRUzWhhh588"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "246041154208-gtvshfved362acs18inr52fo7c04c0nk.apps.googleusercontent.com",
+              "client_id": "18864179271-2irmut7vno02hg06gm76dn9a7lu7skdm.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
